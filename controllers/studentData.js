@@ -1,7 +1,15 @@
-const student = require("../models/studentData");
+const studentData = require("../models/studentData");
 
 function getStudentData(req, res){
-res.json(student)
+res.json(studentData)
 }
 
-module.exports = {getStudentData}
+function addStudentData(req, res){
+    const newstudent = req.body
+    studentData.push(newstudent)
+}
+
+
+
+module.exports = {getStudentData, addStudentData}
+

@@ -2,8 +2,15 @@ const express = require('express')
 
 const router = express.Router()
 
-const {getStudentData} = require("../controllers/studentData");
+const {getStudentData, addStudentData} = require("../controllers/studentData");
 
 router.get("/student", getStudentData);
 
-module.exports = router;
+router.post("/student", addStudentData);
+
+
+
+
+
+
+module.exports = router
