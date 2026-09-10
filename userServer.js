@@ -13,6 +13,7 @@ app.get("/", (req, res)=>{
 app.use("/api", userRoute)
 
 
+
 app.listen(4000, ()=>{
-    console.log("server is running in 3000 Port")
+    console.log("server is running in 4000 Port")
 })

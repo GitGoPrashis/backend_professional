@@ -10,7 +10,8 @@ const createUser = async (req, res)=>{
         })
        res.status(201).json({
         status: true,
-        message: "create successfully."
+        message: "create successfully.",
+        data:user
        })
         
 
@@ -24,4 +25,26 @@ const createUser = async (req, res)=>{
     }
 }
 
-module.exports = {createUser}
+const getUser = async (req, res)=>{
+    try {
+        const userdata = await User.find()
+       res.status(201).json({
+        status: true,
+        message: "create successfully.",
+        userdata : userdata
+
+       })
+        
+
+    } catch (error) {
+
+        res.status(500).json({
+            sucess : false,
+            message : "Internal Error"
+        })
+        
+    }
+}
+
+
+module.exports = {createUser, getUser}
