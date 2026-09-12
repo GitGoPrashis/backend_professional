@@ -1,14 +1,18 @@
 const mongoose = require("mongoose");
-const connectDb = async () => {
-    try {
-    await mongoose.connect("mongodb://localhost:27017/")
-        console.log("database Run successfully in 400 ports.")
 
+const connectDB = async ()=>{
+    try {
+        const conn = await mongoose.connect("mongodb://localhost:27017/productsDB");
+        console.log("MongoDB connected Successfully.")
+        
     } catch (error) {
         console.log(error.message)
         
     }
-    
 }
 
-module.exports = connectDb;
+
+module.exports = connectDB;
+        // name: "Ram Sharma",
+        // email: "ram.sharma@gmail.com",
+        // age: 22
