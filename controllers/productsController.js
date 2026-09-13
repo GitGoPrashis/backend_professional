@@ -3,7 +3,8 @@ const Product = require("../models/productsModel")
 // for showing available product in DB
 const getProducts = async (req, res) => {
     try {
-        const allProducts = await Product.find();
+        const allProducts = await Product.find() ;
+
 
         if (!allProducts || allProducts.length === 0) {
             res.json({
@@ -62,47 +63,12 @@ const createProducts = async (req, res) => {
     }
 };
 
-// for updating products in db
-// const updateProducts = async (req, res) => {
-//     try {
-//         const { id } = req.params;
-//         const { productId, name, price, category, stock } = req.body;
 
-//         const updatedProducts = await Product.findByIdAndUpdate({
-//             productId,
-//             name,
-//             price,
-//             category,
-//             stock
-//         }, { new: true })
-//         if (!updatedProducts) {
-//             res.json({
-//                 message: "cannot find Products"
-//             })
-
-//         } else {
-//             res.status(200).json({
-//                 products : updateProducts
-//             })
-
-//         }
-
-
-//     } catch (error) {
-//         res.status(500).json({
-//             success: false,
-//             message: "Internal server error",
-//             error: error.message
-//         });
-
-//     }
-
-
-// }
 
 const updateProducts = async (req, res) => {
     try {
-        const { id } = req.params;
+        // const { id } = req.params;
+        const id = req.params.id
 
         const { productId, name, price, category, stock } = req.body;
 
@@ -140,9 +106,65 @@ const updateProducts = async (req, res) => {
     }
 };
 
-module.exports = { getProducts, createProducts, updateProducts };
-//  productId: 2,
-//   name: "Smartphone",
-//   price: "35000",
-//         category: "Electronics",
-//         stock: 15
+const deleteProduct = async (req, res)=>{
+    try {
+        const id= req.params.id ;
+        const { productId, name, price, category, stock } = req.body;
+        const deletedProducts = await Product.findByIdAndDelete(id,{
+             productId,
+             name,
+             price,
+             category,
+            stock
+
+            
+
+        },
+  )
+     if (!deletedProducts) {
+            return res.status(404).json({
+                success: false,
+                message: "Cannot find Products to Delete !"
+            });
+        }
+         res.status(200).json({
+            success: true,
+            message: "Product deleted successfully",
+            products: deletedProducts
+        });
+
+        
+    } catch (error) {
+        res.status(500).json({
+            succss: false,
+            message: "Internal Server Error",
+            error: error.message
+        });
+        
+    }
+
+}
+
+const getProductByid = async (req, res)=>{
+    try {
+        const id = req.params.id
+        const getid = await Product.findById(id)
+
+        res.status(200).json({
+            succss:true,
+            message: "product showing by id",
+            products: getid
+        })
+        
+    } catch (error) {
+         res.status(500).json({
+            succss: false,
+            message: "Internal Server Error",
+            error: error.message
+        });
+        
+    }
+}
+
+module.exports = { getProducts, createProducts, updateProducts, deleteProduct, getProductByid };
+
